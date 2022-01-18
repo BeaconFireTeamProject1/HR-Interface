@@ -22,15 +22,26 @@ public class Contact {
     @Column(name = "personID")
     public int personID;
 
+    @Column(name = "name")
+    public String name;
+
+    @Column(name = "phone")
+    public String phone;
+
+    @Column(name = "address")
+    public String address;
+
     @Column(name = "relationship")
     public String relationship;
 
     @Column(name = "title")
     public String title;
 
+    @JsonProperty("isReferrence")
     @Column(name = "isReferrence")
     public boolean isReferrence;
 
+    @JsonProperty("isEmergency")
     @Column(name = "isEmergency")
     public boolean isEmergency;
 }

@@ -18,7 +18,7 @@ public class ProfileController {
     @Autowired
     ProfileService profileService;
 
-    @GetMapping({"/employee-profile"})
+    @GetMapping({"/hiring/employee-profile"})
     public List<Profile> getEmployeeProfile(){
         List<Employee> employeeList = profileService.getAllEmployee();
         List<Profile> profileList = new ArrayList<>();
@@ -31,7 +31,7 @@ public class ProfileController {
 
     }
 
-    @GetMapping({"/employee-info", "/employee-info/{id}"})
+    @GetMapping({"/hiring/employee-info", "/hiring/employee-info/{id}"})
     public Object getEmployeeDetail(@PathVariable(required = false)Integer id){
         Employee e = profileService.findEmployeeByID(id);
         if(id == null || e == null){

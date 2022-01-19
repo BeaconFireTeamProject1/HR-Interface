@@ -12,24 +12,20 @@ import javax.persistence.*;
 @Builder
 @ToString
 @Entity
-@Table(name = "visaStatus")
-public class VisaStatus {
+@Table(name = "registrationToken")
+public class RegistrationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     @JsonProperty("ID")
     public int ID;
 
-    @Column(name = "visaType")
-    public String visaType;
+    @Column(name = "token")
+    public String token;
 
-    @Column(name = "active")
-    public boolean active;
+    @Column(name = "validDuration")
+    public String validDuration;
 
-    @Column(name = "CreateUser")
-    public int createUser;
-
-    @OneToOne
-    @JoinColumn(name = "createUser")
-    public Person person;
+    @Column(name = "email")
+    public String email;
 }

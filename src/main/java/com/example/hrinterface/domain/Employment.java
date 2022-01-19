@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class Employment {
     public String workAuthorization;
     public String authorizationStartDate;

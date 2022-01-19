@@ -1,28 +1,40 @@
 package com.example.hrinterface.controller;
 
 import com.example.hrinterface.constant.JwtConstant;
-import com.example.hrinterface.security.util.JwtUtil;
-import org.springframework.http.HttpEntity;
+import com.example.hrinterface.entity.RegistrationToken;
+import com.example.hrinterface.security.util.HiringJwtUtil;
+import com.example.hrinterface.service.HRService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.swing.text.html.parser.Entity;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Map;
 
 @RestController
 public class HiringController {
-    @PostMapping("/hiring/token")
+    @Autowired
+    HRService hrService;
+
+    @PostMapping("/hr/token")
     public String generateToken(@RequestBody Map<String, Object> payload){
         if(!payload.containsKey("email")){
             return "error";
         }
         else{
-            String token = JwtUtil.generateToken((String)payload.get("email"), JwtConstant.JWT_VALID_DURATION);
-            System.out.println(token);
-            String email = JwtUtil.getSubjectFromJwt(token);
-            System.out.println(email);
-            return "http://localhost:8080/register/"+token;
+            Date expiration = Date.from(ZonedDateTime.now().plusMinutes(JwtConstant.JWT_VALID_DURATION).toInstant());
+            String email = (String)payload.get("email");
+            String subject = email + expiration.toString();
+            String token = HiringJwtUtil.generateToken(subject, JwtConstant.JWT_VALID_DURATION);
+            RegistrationToken registrationToken = new RegistrationToken();
+            registrationToken.setToken(token);
+            registrationToken.setEmail(email);
+            registrationToken.setValidDuration(expiration.toString());
+            hrService.createToken(registrationToken);
+            System.out.println(hrService.findToken(token));
+            return "http://localhost:9999/register/"+token;
         }
     }
 }

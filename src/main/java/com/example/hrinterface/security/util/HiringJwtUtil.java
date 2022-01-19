@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
-public class JwtUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JwtUtil.class);
+public class HiringJwtUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(HiringJwtUtil.class);
 
     public static String generateToken(String subject, int validDuration) {
         long nowMillis = System.currentTimeMillis();

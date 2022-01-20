@@ -8,6 +8,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
+
 @Repository
 public class PersonDAO {
     @Autowired
@@ -33,5 +35,12 @@ public class PersonDAO {
         person.setLastName(names[1]);
         session.update(person);
         session.getTransaction().commit();
+    }
+
+    public int createPerson(Person person){
+        Session session = getCurrentSession();
+        Serializable id = session.save(person);
+        System.out.println(id);
+        return (int)id;
     }
 }

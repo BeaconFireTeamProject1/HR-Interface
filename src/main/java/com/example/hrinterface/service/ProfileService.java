@@ -88,4 +88,12 @@ public class ProfileService {
         }
     }
 
+    public int createPerson(Person person){
+        try{
+           return personDAO.createPerson(person);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return -1;
+    }
 }

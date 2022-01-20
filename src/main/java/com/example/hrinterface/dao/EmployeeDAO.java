@@ -1,6 +1,7 @@
 package com.example.hrinterface.dao;
 
 import com.example.hrinterface.entity.Employee;
+import com.example.hrinterface.entity.Person;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -32,5 +33,15 @@ public class EmployeeDAO {
         query.setParameter("ID", ID);
         Employee employee = (Employee) query.getSingleResult();
         return employee;
+    }
+
+    public void updateVisaInfo(int id, String startDate, String endDate){
+        Session session = getCurrentSession();
+        session.beginTransaction();
+        Employee employee = findEmployeeByID(id);
+        employee.setVisaStartDate(startDate);
+        employee.setVisaEndDate(endDate);
+        session.update(employee);
+        session.getTransaction().commit();
     }
 }

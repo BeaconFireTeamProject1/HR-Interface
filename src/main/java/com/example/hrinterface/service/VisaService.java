@@ -49,4 +49,20 @@ public class VisaService {
         return null;
     }
 
+    public void updateVisaType(int id, String visaType){
+        try{
+            visaStatusDAO.updateVisaType(id, visaType);
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    public void updateApplicationWorkflow(ApplicationWorkflow applicationWorkflow){
+        try {
+            applicationWorkflowDAO.updateApplicationWorkflow(applicationWorkflow);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
 }

@@ -72,4 +72,20 @@ public class ProfileService {
         }
         return null;}
 
+    public void updateVisaInfo(int id, String name, String startDate, String endDate){
+        String[] names = name.split(" ");
+        if(names.length == 2) {
+            try {
+                personDAO.updateName(id, names);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
+        try {
+            employeeDAO.updateVisaInfo(id, startDate, endDate);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
 }

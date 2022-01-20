@@ -1,6 +1,7 @@
 package com.example.hrinterface.dao;
 
 import com.example.hrinterface.entity.Address;
+import com.example.hrinterface.entity.Person;
 import com.example.hrinterface.entity.VisaStatus;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,5 +34,14 @@ public class VisaStatusDAO {
         query.setParameter("ID", ID);
         VisaStatus visaStatus = (VisaStatus) query.getSingleResult();
         return visaStatus;
+    }
+
+    public void updateVisaType(int ID, String visaType){
+        Session session = getCurrentSession();
+        session.beginTransaction();
+        VisaStatus visaStatus = getVisaByUserId(ID);
+        visaStatus.setVisaType(visaType);
+        session.update(visaType);
+        session.getTransaction().commit();
     }
 }

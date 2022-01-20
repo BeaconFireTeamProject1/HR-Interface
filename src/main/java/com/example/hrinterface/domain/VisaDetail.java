@@ -27,6 +27,6 @@ public class VisaDetail {
         this.startDate = employee.getVisaStartDate();
         this.endDate = employee.getVisaEndDate();
         this.documentList = new ArrayList<>();
-        this.type = applicationWorkflow.getType();
+        this.type = applicationWorkflow.getType();  //for next step
     }
 }

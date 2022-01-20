@@ -1,6 +1,7 @@
 package com.example.hrinterface.dao;
 
 import com.example.hrinterface.entity.ApplicationWorkflow;
+import com.example.hrinterface.entity.Person;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -30,5 +31,12 @@ public class ApplicationWorkflowDAO {
         query.setParameter("ID", ID);
         ApplicationWorkflow applicationWorkflow = (ApplicationWorkflow) query.getSingleResult();
         return applicationWorkflow;
+    }
+
+    public void updateApplicationWorkflow(ApplicationWorkflow applicationWorkflow){
+        Session session = getCurrentSession();
+        session.beginTransaction();
+        session.update(applicationWorkflow);
+        session.getTransaction().commit();
     }
 }

@@ -24,4 +24,14 @@ public class PersonDAO {
         Person person = (Person) query.getSingleResult();
         return person;
     }
+
+    public void updateName(int id, String[] names){
+        Session session = getCurrentSession();
+        session.beginTransaction();
+        Person person = findPersonByID(id);
+        person.setFirstName(names[0]);
+        person.setLastName(names[1]);
+        session.update(person);
+        session.getTransaction().commit();
+    }
 }

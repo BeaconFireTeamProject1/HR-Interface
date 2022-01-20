@@ -38,9 +38,9 @@ public class Contact {
     @Column(name = "title")
     public String title;
 
-    @JsonProperty("isReferrence")
-    @Column(name = "isReferrence")
-    public boolean isReferrence;
+    @JsonProperty("isReference")
+    @Column(name = "isReference")
+    public boolean isReference;
 
     @JsonProperty("isEmergency")
     @Column(name = "isEmergency")

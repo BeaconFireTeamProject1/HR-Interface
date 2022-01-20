@@ -33,8 +33,11 @@ public class ProfileController {
 
     @GetMapping({"/hr/employee-info", "/hr/employee-info/{id}"})
     public Object getEmployeeDetail(@PathVariable(required = false)Integer id){
+        if(id == null){
+            return "error";
+        }
         Employee e = profileService.findEmployeeByID(id);
-        if(id == null || e == null){
+        if(e == null){
             return "error";
         }
         else {

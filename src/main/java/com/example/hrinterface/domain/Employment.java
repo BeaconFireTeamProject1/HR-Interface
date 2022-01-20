@@ -3,6 +3,8 @@ package com.example.hrinterface.domain;
 import com.example.hrinterface.entity.Employee;
 import lombok.*;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor

@@ -34,7 +34,7 @@ public class HiringController {
             registrationToken.setValidDuration(expiration.toString());
             hrService.createToken(registrationToken);
             System.out.println(hrService.findToken(token));
-            return "http://localhost:9999/register/"+token;
+            return "http://localhost:9999/auth/register/"+token;
         }
     }
 }

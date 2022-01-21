@@ -18,7 +18,7 @@ public class HiringController {
     @Autowired
     HRService hrService;
 
-    @PostMapping("/hr/token")
+    @PostMapping("/api/hr/token")
     public String generateToken(@RequestBody Map<String, Object> payload){
         if(!payload.containsKey("email")){
             return "error";

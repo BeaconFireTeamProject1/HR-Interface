@@ -21,7 +21,7 @@ public class VisaController {
     @Autowired
     VisaService visaService;
 
-    @GetMapping({"/hr/visa-profile", "/hr/homepage"})
+    @GetMapping({"/api/hr/visa-profile", "/api/hr/homepage"})
     public List<VisaProfile> getVisaProfile(){
         List<Employee> employeeList = profileService.getAllEmployee();
         List<VisaProfile> visaProfileList = new ArrayList<>();
@@ -31,7 +31,7 @@ public class VisaController {
         return visaProfileList;
     }
 
-    @GetMapping({"/hr/visa-info", "/hr/visa-info/{id}"})
+    @GetMapping({"/api/hr/visa-info", "/api/hr/visa-info/{id}"})
     public Object getVisaDetail(@PathVariable(required = false)Integer id){
         if(id == null){
             return "error";
@@ -47,14 +47,14 @@ public class VisaController {
         }
     }
 
-    @PostMapping("/hr/{id}/visa-update")
+    @PostMapping("/api/hr/{id}/visa-update")
     public Object updateInformation(@PathVariable Integer id, @RequestBody Map<String, Object> payload){
         profileService.updateVisaInfo(id, (String) payload.get("name"), (String) payload.get("startDate"), (String) payload.get("endDate"));
         visaService.updateVisaType(id, (String) payload.get("visaType"));
         return new VisaDetail(profileService.findEmployeeByID(id), visaService.getWorkflowByEmployeeId(id));
     }
 
-    @PostMapping("/hr/{id}/review")
+    @PostMapping("/api/hr/{id}/review")
     public Object review(@PathVariable Integer id, @RequestBody Map<String, Object> payload){
         ApplicationWorkflow applicationWorkflow = visaService.getWorkflowByEmployeeId(id);
         applicationWorkflow.setCreatedDate(LocalDate.now().toString());

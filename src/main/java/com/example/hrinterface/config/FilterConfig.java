@@ -19,7 +19,7 @@ public class FilterConfig {
         filterFilterRegistrationBean.setFilter(new LoginFilter());
         filterFilterRegistrationBean.setInitParameters(Collections.singletonMap("authLoginUrl", authLoginUrl));
         // The difference between /* & /** is that the second matches the entire directory tree, including subdirectories, where as /* only matches at the level it's specified at.
-        filterFilterRegistrationBean.addUrlPatterns("/hr/*");
+        filterFilterRegistrationBean.addUrlPatterns("/api/hr/*");
         filterFilterRegistrationBean.setOrder(1);
         return filterFilterRegistrationBean;
     }

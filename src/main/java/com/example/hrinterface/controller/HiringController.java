@@ -93,7 +93,7 @@ public class HiringController {
         }
     }
 
-    @PostMapping("api/hr/reg-review/{id}")
+    @PostMapping("/api/hr/reg-review/{id}")
     public Object reviewApplication(@PathVariable Integer id, @RequestBody Map<String, Object> payload){
         if(!payload.containsKey("review")){
             return "error";

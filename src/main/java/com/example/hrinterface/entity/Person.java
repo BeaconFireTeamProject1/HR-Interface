@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @ToString
 @Entity
-@Table(name = "person")
+@Table(name = "Person")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

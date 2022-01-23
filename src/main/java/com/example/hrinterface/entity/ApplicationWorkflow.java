@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Builder
 @ToString
 @Entity
-@Table(name = "applicationworkflow")
+@Table(name = "ApplicationWorkFlow")
 public class ApplicationWorkflow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

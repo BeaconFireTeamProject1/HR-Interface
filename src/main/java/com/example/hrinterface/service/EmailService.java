@@ -15,7 +15,7 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("123@gmail.com");//this should be the same as spring.mail.username in application.properties;
         message.setTo(toEmail);
-        message.setText("click this link to register: "+body);
+        message.setText(body);
         message.setSubject(subject);
         mailSender.send(message);
     }

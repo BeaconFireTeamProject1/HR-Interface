@@ -5,7 +5,9 @@ import com.example.hrinterface.entity.RegistrationToken;
 import com.example.hrinterface.security.util.HiringJwtUtil;
 import com.example.hrinterface.service.EmailService;
 import com.example.hrinterface.service.HRService;
+import com.example.hrinterface.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +20,8 @@ import java.util.Map;
 public class HiringController {
     @Autowired
     HRService hrService;
-
+    @Autowired
+    ProfileService profileService;
     @Autowired
     EmailService emailService;
 
@@ -38,12 +41,23 @@ public class HiringController {
             registrationToken.setValidDuration(expiration.toString());
             hrService.createToken(registrationToken);
             System.out.println(hrService.findToken(token));
-            sendEmailForRegistration("http://localhost:9999/auth/register/"+token, email);
+            sendEmailForRegistration("click this link to register: " + "http://localhost:9999/auth/register/"+token, email);
             return "http://localhost:9999/auth/register/"+token;
         }
     }
 
     public void sendEmailForRegistration(String link, String email){
         emailService.sendEmail(email, "Registration", link);
+    }
+
+    @PostMapping("/api/hr/sendnotification/{id}")
+    public boolean sendNotification(@PathVariable Integer id){
+        try {
+            emailService.sendEmail(profileService.findPersonByID(profileService.findEmployeeByID(id).getID()).getEmail(),
+                    "Work Authorization Expire Notification", "Your work authorization is almost expired");
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 }

@@ -38,7 +38,7 @@ public class ProfileDetail {
     List<Address> addressList;
     List<PersonalDocument> documentList;
 
-    public ProfileDetail(Employee employee, Contact contact, List<Address> addressList){
+    public ProfileDetail(Employee employee, Contact contact, List<Address> addressList, List<PersonalDocument> documentList){
         this.ID = employee.getID();
         this.firstName = employee.getPerson().getFirstName();
         this.lastName = employee.getPerson().getLastName();
@@ -55,6 +55,6 @@ public class ProfileDetail {
         this.employment = new Employment(employee);
         this.contact = contact;
         this.addressList = addressList;
-        this.documentList = new ArrayList<>();
+        this.documentList = documentList;
     }
 }

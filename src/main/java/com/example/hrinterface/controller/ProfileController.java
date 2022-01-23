@@ -5,6 +5,7 @@ import com.example.hrinterface.domain.ProfileDetail;
 import com.example.hrinterface.entity.Employee;
 import com.example.hrinterface.entity.Person;
 import com.example.hrinterface.entity.VisaStatus;
+import com.example.hrinterface.service.DocumentService;
 import com.example.hrinterface.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,8 @@ public class ProfileController {
 
     @Autowired
     ProfileService profileService;
+    @Autowired
+    DocumentService documentService;
 
     @GetMapping({"/api/hr/employee-profile"})
     public List<Profile> getEmployeeProfile(){
@@ -41,7 +44,7 @@ public class ProfileController {
             return "error";
         }
         else {
-            ProfileDetail pd = new ProfileDetail(e, profileService.getContactById(e.getID()), profileService.getAddressByPersonId(e.getID()));
+            ProfileDetail pd = new ProfileDetail(e, profileService.getContactById(e.getID()), profileService.getAddressByPersonId(e.getID()), documentService.getDocsByEmployeeId(e.getID()));
             return pd;
         }
     }

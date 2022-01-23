@@ -43,4 +43,12 @@ public class PersonDAO {
         System.out.println(id);
         return (int)id;
     }
+
+    public Person findPersonByUserID(int ID){
+        Session session = getCurrentSession();
+        Query query = session.createQuery("From Person p WHERE p.userID = :ID");
+        query.setParameter("ID", ID);
+        Person person = (Person) query.getSingleResult();
+        return person;
+    }
 }

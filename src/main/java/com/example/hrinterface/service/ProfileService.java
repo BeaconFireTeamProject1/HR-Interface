@@ -1,13 +1,7 @@
 package com.example.hrinterface.service;
 
-import com.example.hrinterface.dao.AddressDAO;
-import com.example.hrinterface.dao.ContactDAO;
-import com.example.hrinterface.dao.EmployeeDAO;
-import com.example.hrinterface.dao.PersonDAO;
-import com.example.hrinterface.entity.Address;
-import com.example.hrinterface.entity.Contact;
-import com.example.hrinterface.entity.Employee;
-import com.example.hrinterface.entity.Person;
+import com.example.hrinterface.dao.*;
+import com.example.hrinterface.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +17,8 @@ public class ProfileService {
     ContactDAO contactDAO;
     @Autowired
     AddressDAO addressDAO;
+    @Autowired
+    UserRoleDAO userRoleDAO;
 
     public List<Employee> getAllEmployee(){
         try {
@@ -36,6 +32,16 @@ public class ProfileService {
     public Employee findEmployeeByID(int ID){
         try {
             return employeeDAO.findEmployeeByID(ID);
+        }
+        catch (Exception E){
+            System.out.println(E);
+        }
+        return null;
+    }
+
+    public UserRole findUserRoleByID(int ID){
+        try {
+            return userRoleDAO.findUserRoleByID(ID);
         }
         catch (Exception E){
             System.out.println(E);
@@ -95,5 +101,32 @@ public class ProfileService {
             System.out.println(e);
         }
         return -1;
+    }
+
+    public Employee findEmployeebyUserID(int ID){
+        try {
+            return employeeDAO.findEmployeeByPersonID(personDAO.findPersonByUserID(ID).getID());
+        }
+        catch (Exception E){
+            System.out.println(E);
+        }
+        return null;
+    }
+
+    public List<UserRole> getRegList(){
+        try{
+            return userRoleDAO.getRegList();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public void updateUserRole(UserRole userRole){
+        try{
+            userRoleDAO.updateUserRole(userRole);
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 }

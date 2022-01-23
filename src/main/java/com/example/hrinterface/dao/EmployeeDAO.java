@@ -44,4 +44,12 @@ public class EmployeeDAO {
         session.update(employee);
         session.getTransaction().commit();
     }
+
+    public Employee findEmployeeByPersonID(int ID){
+        Session session = getCurrentSession();
+        Query query = session.createQuery("From Employee e WHERE e.personID = :ID");
+        query.setParameter("ID", ID);
+        Employee employee = (Employee) query.getSingleResult();
+        return employee;
+    }
 }

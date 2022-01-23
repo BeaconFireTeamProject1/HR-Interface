@@ -3,6 +3,7 @@ package com.example.hrinterface.controller;
 import com.example.hrinterface.constant.JwtConstant;
 import com.example.hrinterface.entity.RegistrationToken;
 import com.example.hrinterface.security.util.HiringJwtUtil;
+import com.example.hrinterface.service.EmailService;
 import com.example.hrinterface.service.HRService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,9 @@ import java.util.Map;
 public class HiringController {
     @Autowired
     HRService hrService;
+
+    @Autowired
+    EmailService emailService;
 
     @PostMapping("/api/hr/token")
     public String generateToken(@RequestBody Map<String, Object> payload){
@@ -34,7 +38,12 @@ public class HiringController {
             registrationToken.setValidDuration(expiration.toString());
             hrService.createToken(registrationToken);
             System.out.println(hrService.findToken(token));
+            sendEmailForRegistration("http://localhost:9999/auth/register/"+token, email);
             return "http://localhost:9999/auth/register/"+token;
         }
+    }
+
+    public void sendEmailForRegistration(String link, String email){
+        emailService.sendEmail(email, "Registration", link);
     }
 }

@@ -28,6 +28,12 @@ public class MainController {
     @Autowired
     private FileStorageService fileStorageService;
 
+    @GetMapping("/api/hr/getTemplate")
+    public String getLink(){
+        DigitalDocument digitalDocument = documentService.getDigitalDocumentById(1);
+        return digitalDocument.getTemplateLocation();
+    }
+
     @PostMapping("/api/hr/uploadDigitalFile")
     public ResponseEntity<DigitalDocument> uploadDigitalFile(
             @RequestParam("file") MultipartFile file

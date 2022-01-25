@@ -5,13 +5,11 @@ import com.example.hrinterface.domain.ProfileDetail;
 import com.example.hrinterface.entity.Employee;
 import com.example.hrinterface.entity.Person;
 import com.example.hrinterface.entity.VisaStatus;
-import com.example.hrinterface.exception.MyException;
 import com.example.hrinterface.service.DocumentService;
 import com.example.hrinterface.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +35,7 @@ public class ProfileController {
     }
 
     @GetMapping({"/api/hr/employee-info", "/api/hr/employee-info/{id}"})
-    public Object getEmployeeDetail(@PathVariable(required = false)Integer id, HttpServletRequest request) throws MyException {
+    public Object getEmployeeDetail(@PathVariable(required = false)Integer id){
         if(id == null){
             return "error";
         }

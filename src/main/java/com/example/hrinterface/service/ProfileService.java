@@ -2,6 +2,7 @@ package com.example.hrinterface.service;
 
 import com.example.hrinterface.dao.*;
 import com.example.hrinterface.entity.*;
+import com.example.hrinterface.exception.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,14 +30,19 @@ public class ProfileService {
         return null;
     }
 
-    public Employee findEmployeeByID(int ID){
-        try {
-            return employeeDAO.findEmployeeByID(ID);
+    public Employee findEmployeeByID(int ID) throws MyException {
+//        try {
+//            return employeeDAO.findEmployeeByID(ID);
+//        }
+//        catch (Exception E){
+//            System.out.println(E);
+//        }
+//        return null;
+        Employee e = employeeDAO.findEmployeeByID(ID);
+        if(e == null){
+            throw new MyException("my exception");
         }
-        catch (Exception E){
-            System.out.println(E);
-        }
-        return null;
+        else return e;
     }
 
     public UserRole findUserRoleByID(int ID){

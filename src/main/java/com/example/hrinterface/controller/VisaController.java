@@ -4,6 +4,7 @@ import com.example.hrinterface.domain.VisaDetail;
 import com.example.hrinterface.domain.VisaProfile;
 import com.example.hrinterface.entity.ApplicationWorkflow;
 import com.example.hrinterface.entity.Employee;
+import com.example.hrinterface.exception.MyException;
 import com.example.hrinterface.service.ProfileService;
 import com.example.hrinterface.service.VisaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class VisaController {
     }
 
     @GetMapping({"/api/hr/visa-info", "/api/hr/visa-info/{id}"})
-    public Object getVisaDetail(@PathVariable(required = false)Integer id){
+    public Object getVisaDetail(@PathVariable(required = false)Integer id) throws MyException {
         if(id == null){
             return "error";
         }
@@ -48,7 +49,7 @@ public class VisaController {
     }
 
     @PostMapping("/api/hr/{id}/visa-update")
-    public Object updateInformation(@PathVariable Integer id, @RequestBody Map<String, Object> payload){
+    public Object updateInformation(@PathVariable Integer id, @RequestBody Map<String, Object> payload) throws MyException {
         profileService.updateVisaInfo(id, (String) payload.get("name"), (String) payload.get("startDate"), (String) payload.get("endDate"));
         visaService.updateVisaType(id, (String) payload.get("visaType"));
         return new VisaDetail(profileService.findEmployeeByID(id), visaService.getWorkflowByEmployeeId(id));

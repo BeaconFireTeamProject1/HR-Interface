@@ -2,6 +2,8 @@ package com.example.hrinterface.service;
 
 import com.example.hrinterface.dao.*;
 import com.example.hrinterface.entity.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +22,13 @@ public class ProfileService {
     @Autowired
     UserRoleDAO userRoleDAO;
 
+    private static final Logger logger = LoggerFactory.getLogger(ProfileService.class);
+
     public List<Employee> getAllEmployee(){
         try {
             return employeeDAO.getAllEmployee();
         }catch (Exception E){
-            System.out.println(E);
+            logger.info("Catch an Exception: "+ E );
         }
         return null;
     }
@@ -34,7 +38,7 @@ public class ProfileService {
             return employeeDAO.findEmployeeByID(ID);
         }
         catch (Exception E){
-            System.out.println(E);
+            logger.info("Catch an Exception: "+ E );
         }
         return null;
     }
@@ -44,7 +48,7 @@ public class ProfileService {
             return userRoleDAO.findUserRoleByID(ID);
         }
         catch (Exception E){
-            System.out.println(E);
+            logger.info("Catch an Exception: "+ E );
         }
         return null;
     }
@@ -54,7 +58,7 @@ public class ProfileService {
             return personDAO.findPersonByID(ID);
         }
         catch (Exception E){
-            System.out.println(E);
+            logger.info("Catch an Exception: "+ E );
         }
         return null;
     }
@@ -64,7 +68,7 @@ public class ProfileService {
             return contactDAO.getContactByPersonId(ID);
         }
         catch (Exception E){
-            System.out.println(E);
+            logger.info("Catch an Exception: "+ E );
         }
         return null;
     }
@@ -74,7 +78,7 @@ public class ProfileService {
             return addressDAO.getAddressByPersonId(ID);
         }
         catch (Exception E){
-            System.out.println(E);
+            logger.info("Catch an Exception: "+ E );
         }
         return null;}
 
@@ -84,13 +88,13 @@ public class ProfileService {
             try {
                 personDAO.updateName(id, names);
             }catch (Exception e){
-                System.out.println(e);
+                logger.info("Catch an Exception: "+e );
             }
         }
         try {
             employeeDAO.updateVisaInfo(id, startDate, endDate);
         }catch (Exception e){
-            System.out.println(e);
+            logger.info("Catch an Exception: "+e );
         }
     }
 
@@ -98,7 +102,7 @@ public class ProfileService {
         try{
            return personDAO.createPerson(person);
         }catch (Exception e){
-            System.out.println(e);
+            logger.info("Catch an Exception: "+e );
         }
         return -1;
     }
@@ -108,7 +112,7 @@ public class ProfileService {
             return employeeDAO.findEmployeeByPersonID(personDAO.findPersonByUserID(ID).getID());
         }
         catch (Exception E){
-            System.out.println(E);
+            logger.info("Catch an Exception: "+ E );
         }
         return null;
     }
@@ -117,7 +121,7 @@ public class ProfileService {
         try{
             return userRoleDAO.getRegList();
         }catch (Exception e){
-            System.out.println(e);
+            logger.info("Catch an Exception: "+e );
         }
         return null;
     }
@@ -126,7 +130,7 @@ public class ProfileService {
         try{
             userRoleDAO.updateUserRole(userRole);
         }catch (Exception e){
-            System.out.println(e);
+            logger.info("Catch an Exception: "+e );
         }
     }
 }

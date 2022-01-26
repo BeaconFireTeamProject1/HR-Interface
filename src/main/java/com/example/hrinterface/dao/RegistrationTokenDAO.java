@@ -5,6 +5,8 @@ import com.example.hrinterface.entity.RegistrationToken;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +16,8 @@ import java.io.Serializable;
 public class RegistrationTokenDAO {
     @Autowired
     protected SessionFactory sessionFactory;
+
+    private static final Logger logger = LoggerFactory.getLogger(RegistrationTokenDAO.class);
 
     protected final Session getCurrentSession(){
         return sessionFactory.getCurrentSession();
@@ -30,6 +34,6 @@ public class RegistrationTokenDAO {
     public void createToken(RegistrationToken token){
         Session session = getCurrentSession();
         Serializable id = session.save(token);
-        System.out.println(id);
+        logger.info("New Token ID: "+id);
     }
 }

@@ -5,6 +5,8 @@ import com.example.hrinterface.entity.Person;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +16,8 @@ import java.io.Serializable;
 public class PersonDAO {
     @Autowired
     protected SessionFactory sessionFactory;
+
+    private static final Logger logger = LoggerFactory.getLogger(PersonDAO.class);
 
     protected final Session getCurrentSession(){
         return sessionFactory.getCurrentSession();
@@ -40,7 +44,7 @@ public class PersonDAO {
     public int createPerson(Person person){
         Session session = getCurrentSession();
         Serializable id = session.save(person);
-        System.out.println(id);
+        logger.info("New Person created with ID " + id);
         return (int)id;
     }
 

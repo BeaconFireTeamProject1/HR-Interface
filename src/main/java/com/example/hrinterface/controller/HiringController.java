@@ -12,6 +12,8 @@ import com.example.hrinterface.service.DocumentService;
 import com.example.hrinterface.service.EmailService;
 import com.example.hrinterface.service.HRService;
 import com.example.hrinterface.service.ProfileService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +34,8 @@ public class HiringController {
     @Autowired
     DocumentService documentService;
 
+    private static final Logger logger = LoggerFactory.getLogger(HiringController.class);
+
     @PostMapping("/api/hr/token")
     public String generateToken(@RequestBody Map<String, Object> payload){
         if(!payload.containsKey("email")){
@@ -47,7 +51,7 @@ public class HiringController {
             registrationToken.setEmail(email);
             registrationToken.setValidDuration(expiration.toString());
             hrService.createToken(registrationToken);
-            System.out.println(hrService.findToken(token));
+            logger.info("New token generated: "+token);
             sendEmailForRegistration("click this link to register: " + "http://localhost:9999/auth/register/"+token, email);
             return "http://localhost:9999/auth/register/"+token;
         }

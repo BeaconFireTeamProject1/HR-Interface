@@ -4,6 +4,8 @@ import com.example.hrinterface.dao.DigitalDocumentDAO;
 import com.example.hrinterface.dao.PersonalDocumentDAO;
 import com.example.hrinterface.entity.DigitalDocument;
 import com.example.hrinterface.entity.PersonalDocument;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,17 +18,19 @@ public class DocumentService {
     @Autowired
     DigitalDocumentDAO digitalDocumentDAO;
 
+    private static final Logger logger = LoggerFactory.getLogger(DocumentService.class);
+
     public PersonalDocument findDocumentByID(int ID){
         try{
             return personalDocumentDAO.findDocumentByID(ID);
-        }catch (Exception e){System.out.println(e);}
+        }catch (Exception e){logger.info("Catch an Exception: "+e );}
         return null;
     }
 
     public List<PersonalDocument> getDocsByEmployeeId(int id){
         try{
             return personalDocumentDAO.getDocsByEmployeeId(id);
-        }catch (Exception e){System.out.println(e);}
+        }catch (Exception e){logger.info("Catch an Exception: "+e );}
         return null;
     }
 
@@ -34,7 +38,7 @@ public class DocumentService {
         try {
             return digitalDocumentDAO.getDigitalDocById(digitalDocId);
         }catch (Exception e){
-            e.printStackTrace();
+            logger.info("Catch an Exception: "+e );
         }
         return null;
     }
@@ -44,7 +48,7 @@ public class DocumentService {
         try {
             digitalDocumentDAO.addNewDocument(digitalDocument);
         }catch (Exception e){
-            e.printStackTrace();
+            logger.info("Catch an Exception: "+e );
         }
     }
 
